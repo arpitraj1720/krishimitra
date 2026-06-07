@@ -306,7 +306,7 @@ const googleLogin = useGoogleLogin({
 
     localStorage.setItem("googleUser", JSON.stringify(user));
 
-    navigate("/profile");
+    navigate("/dashboard");
   },
 
   onError: () => {
@@ -354,7 +354,7 @@ localStorage.setItem(
 
     alert("Login Successful!");
 
-    navigate("/profile");
+    navigate("/dashboard");
   } catch (error) {
     console.error(error);
     alert("Server Error");
