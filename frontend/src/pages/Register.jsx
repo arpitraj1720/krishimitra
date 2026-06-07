@@ -130,31 +130,47 @@ try {
   } else {
     payload.phone = form.contact;
   }
+const identifier = form.contact;
 
-  const response = await fetch(
-    "https://krishimitra-sjw8.onrender.com/api/auth/register",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    }
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    alert(data.message);
-    return;
+const response = await fetch(
+  "https://krishimitra-sjw8.onrender.com/api/auth/send-otp",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      identifier,
+      type: contactTab,
+    }),
   }
+);
 
-  alert("Registration Successful!");
+const data = await response.json();
+
+if (!response.ok) {
+  alert(data.message);
+  return;
+}
+
+alert("OTP Sent Successfully!");
 
 navigate("/verify-otp", {
   state: {
-    phone: form.contact
-  }
+    fullName: form.fullName,
+    password: form.password,
+    email:
+      contactTab === "email"
+        ? form.contact
+        : "",
+
+    phone:
+      contactTab === "phone"
+        ? form.contact
+        : "",
+
+    type: contactTab,
+  },
 });
 } catch (error) {
   console.error(error);

@@ -11,7 +11,9 @@ export default function VerifyOtp() {
 
   // Phone number can be passed from Register via location.state
   // e.g. navigate("/verify-otp", { state: { phone: "9876543210" } })
- const rawPhone = location.state?.phone;
+ const identifier =
+  location.state?.phone ||
+  location.state?.email;
 
 useEffect(() => {
   if (!rawPhone) {
@@ -104,13 +106,83 @@ const maskedPhone =
   const otpValue  = digits.join("");
 
   /* ── verify ── */
-  const handleVerify = () => {
-    if (!filled) return;
+ const handleVerify = async () => {
+  if (!filled) return;
 
-    // ── FRONTEND-ONLY (no real validation) ──
-    // TODO: replace this block with your real API call (see backend notes below)
+  try {
+    const otpResponse = await fetch(
+      "https://krishimitra-sjw8.onrender.com/api/auth/verify-otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier:
+            location.state?.type === "email"
+              ? location.state?.email
+              : location.state?.phone,
+          otp: otpValue,
+        }),
+      }
+    );
+
+    const otpData = await otpResponse.json();
+
+    if (!otpResponse.ok) {
+      setHasErr(true);
+      setErrMsg(otpData.message);
+      return;
+    }
+
+    const registerPayload = {
+      fullName: location.state?.fullName,
+      password: location.state?.password,
+    };
+
+    if (location.state?.email) {
+      registerPayload.email =
+        location.state.email;
+    }
+
+    if (location.state?.phone) {
+      registerPayload.phone =
+        location.state.phone;
+    }
+
+    const registerResponse = await fetch(
+      "https://krishimitra-sjw8.onrender.com/api/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registerPayload),
+      }
+    );
+
+    const registerData =
+      await registerResponse.json();
+
+    if (!registerResponse.ok) {
+      setHasErr(true);
+      setErrMsg(registerData.message);
+      return;
+    }
+
     setSuccess(true);
-    setTimeout(() => navigate("/dashboard"), 1500);
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
+
+  } catch (error) {
+    console.error(error);
+
+    setHasErr(true);
+    setErrMsg("Server Error");
+  }
+};
 
     // ── WHAT TO DO WITH BACKEND ──
     // 1. Call your API: POST /api/auth/verify-otp { phone: rawPhone, otp: otpValue }
@@ -134,7 +206,7 @@ const maskedPhone =
     //   setDigits(Array(OTP_LENGTH).fill(""));
     //   inputRefs.current[0]?.focus();
     // }
-  };
+  
 
   /* ── resend ── */
   const handleResend = () => {
