@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 import "./Login.css";
 
 /* ─────────────────────────────────────────
-   Firefly swarm — amber particles that slowly
+   Firefly swarm — amber particles that slowlyhandleSubmit
    chase the cursor like insects drawn to light,
    then scatter organically when cursor is still.
    Each firefly has its own personality: speed,
@@ -286,13 +287,79 @@ export default function Login() {
     setErrors({ identifier: "" });
     setFormData((p) => ({ ...p, identifier: "" }));
   };
+const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    console.log("Google Login Success", tokenResponse);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const idErr = validateIdentifier(formData.identifier);
-    if (idErr) { setErrors({ identifier: idErr }); return; }
-    navigate("/profile"); /* TODO: Firebase auth */
-  };
+    const userInfo = await fetch(
+      "https://www.googleapis.com/oauth2/v3/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.access_token}`,
+        },
+      }
+    );
+
+    const user = await userInfo.json();
+
+    console.log(user);
+
+    localStorage.setItem("googleUser", JSON.stringify(user));
+
+    navigate("/profile");
+  },
+
+  onError: () => {
+    alert("Google Login Failed");
+  },
+});
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const idErr = validateIdentifier(formData.identifier);
+
+  if (idErr) {
+    setErrors({ identifier: idErr });
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://krishimitra-sjw8.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+  identifier: formData.identifier,
+  password: formData.password,
+}),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
+      return;
+    }
+
+    localStorage.setItem("token", data.token);
+
+localStorage.setItem(
+  "user",
+  JSON.stringify(data.user)
+);
+
+    alert("Login Successful!");
+
+    navigate("/profile");
+  } catch (error) {
+    console.error(error);
+    alert("Server Error");
+  }
+};
 
   const scrollToLogin = () =>
     loginRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -514,7 +581,11 @@ export default function Login() {
             <span /><span>or continue with</span><span />
           </div>
 
-          <button type="button" className="km-btn-google">
+         <button
+  type="button"
+  className="km-btn-google"
+  onClick={() => googleLogin()}
+>
             <svg className="km-g-svg" viewBox="0 0 48 48" aria-hidden="true">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
               <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>

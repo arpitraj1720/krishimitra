@@ -83,17 +83,58 @@ export default function Register() {
     return e;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    /* TODO: Firebase auth */
-    navigate("/verify-otp", {
-      state: {
-        phone: form.contact
-      }
-    });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const errs = validate();
+
+  if (Object.keys(errs).length > 0) {
+    setErrors(errs);
+    return;
+  }
+
+try {
+  const payload = {
+    fullName: form.fullName,
+    password: form.password,
   };
+
+  if (contactTab === "email") {
+    payload.email = form.contact;
+  } else {
+    payload.phone = form.contact;
+  }
+
+  const response = await fetch(
+    "https://krishimitra-sjw8.onrender.com/api/auth/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    alert(data.message);
+    return;
+  }
+
+  alert("Registration Successful!");
+
+navigate("/verify-otp", {
+  state: {
+    phone: form.contact
+  }
+});
+} catch (error) {
+  console.error(error);
+  alert("Server Error");
+} 
+};
 
   const strength = getStrength(form.password);
 
