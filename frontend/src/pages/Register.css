@@ -195,8 +195,6 @@
   transition: width 0.28s var(--ease);
 }
 
-.rg-field:focus-within .rg-uline { width: 100%; }
-
 /* show/hide toggle */
 .rg-showhide {
   position: absolute;

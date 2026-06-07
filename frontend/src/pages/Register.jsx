@@ -88,7 +88,11 @@ export default function Register() {
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     /* TODO: Firebase auth */
-    navigate("/dashboard");
+    navigate("/verify-otp", {
+      state: {
+        phone: form.contact
+      }
+    });
   };
 
   const strength = getStrength(form.password);
@@ -99,7 +103,7 @@ export default function Register() {
       {/* ── navbar ── */}
       <nav className="rg-nav">
         <Link to="/" className="rg-logo">
-          <span>🌾</span>
+          <span></span>
           <span className="rg-logo-name">KrishiMitra</span>
         </Link>
         <Link to="/" className="rg-nav-back">← Back to home</Link>
@@ -322,7 +326,7 @@ export default function Register() {
       </main>
 
       <footer className="rg-footer">
-        <span className="rg-footer-brand">🌾 KrishiMitra</span>
+        <span className="rg-footer-brand"> KrishiMitra</span>
         <span className="rg-footer-copy">© 2025 · Made for Indian farmers</span>
       </footer>
     </div>

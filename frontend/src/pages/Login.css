@@ -521,7 +521,7 @@
   transition: width 0.28s var(--ease);
 }
 
-.km-field:focus-within .km-uline { width: 100%; }
+
 
 .km-showhide {
   position: absolute;
