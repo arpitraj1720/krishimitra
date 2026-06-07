@@ -69,10 +69,12 @@ if (type === "email") {
       message: "OTP sent successfully",
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  console.error("SEND OTP ERROR:", error);
+
+  res.status(500).json({
+    message: error.message,
+  });
+}
 };
 const verifyOtp = async (req, res) => {
   try {
