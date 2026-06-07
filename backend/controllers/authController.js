@@ -58,12 +58,12 @@ if (existingUser) {
     console.log(
       `OTP for ${identifier}: ${otp}`
     );
-if (type === "email") {
-  await sendEmailOtp(identifier, otp);
+if (type === "phone") {
+  console.log(`SMS OTP for ${identifier}: ${otp}`);
 }
 
-if (type === "phone") {
-  await sendSmsOtp(identifier, otp);
+if (type === "email") {
+  console.log(`EMAIL OTP for ${identifier}: ${otp}`);
 }
     res.status(200).json({
       message: "OTP sent successfully",
