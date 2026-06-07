@@ -113,7 +113,7 @@ const maskedPhone =
 
   try {
     const otpResponse = await fetch(
-      "https://krishimitra-sjw8.onrender.com/api/auth/verify-otp",
+      "http://localhost:5001/api/auth/verify-otp",
       {
         method: "POST",
         headers: {

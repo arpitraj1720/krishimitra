@@ -133,7 +133,7 @@ try {
 const identifier = form.contact;
 
 const response = await fetch(
-  "https://krishimitra-sjw8.onrender.com/api/auth/send-otp",
+  "http://localhost:5001/api/auth/send-otp",
   {
     method: "POST",
     headers: {

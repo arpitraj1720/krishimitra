@@ -16,7 +16,23 @@ const sendOtp = async (req, res) => {
         message: "Identifier and type are required",
       });
     }
+const existingUser = await User.findOne({
+  $or: [
+    ...(type === "email"
+      ? [{ email: identifier }]
+      : []),
 
+    ...(type === "phone"
+      ? [{ phone: identifier }]
+      : []),
+  ],
+});
+
+if (existingUser) {
+  return res.status(400).json({
+    message: "User already exists. Please login.",
+  });
+}
     const otp = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
