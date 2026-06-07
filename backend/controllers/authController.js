@@ -7,6 +7,7 @@ const OtpVerification = require("../models/OtpVerification");
    REGISTER USER
 =========================== */
 const sendOtp = async (req, res) => {
+  console.log("SEND OTP ROUTE HIT");
   try {
     const { identifier, type } = req.body;
 
