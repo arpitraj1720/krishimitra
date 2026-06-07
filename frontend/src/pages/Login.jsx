@@ -325,7 +325,7 @@ const googleLogin = useGoogleLogin({
 
   try {
     const response = await fetch(
-      "http://localhost:5001/api/auth/login",
+      "https://krishimitra-sjw8.onrender.com/api/auth/login",
       {
         method: "POST",
         headers: {
@@ -346,6 +346,11 @@ const googleLogin = useGoogleLogin({
     }
 
     localStorage.setItem("token", data.token);
+
+localStorage.setItem(
+  "user",
+  JSON.stringify(data.user)
+);
 
     alert("Login Successful!");
 

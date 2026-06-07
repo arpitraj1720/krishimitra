@@ -106,7 +106,7 @@ try {
   }
 
   const response = await fetch(
-    "http://localhost:5001/api/auth/register",
+    "https://krishimitra-sjw8.onrender.com/api/auth/register",
     {
       method: "POST",
       headers: {
