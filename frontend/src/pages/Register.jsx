@@ -83,13 +83,54 @@ export default function Register() {
     return e;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    /* TODO: Firebase auth */
-    navigate("/dashboard");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const errs = validate();
+
+  if (Object.keys(errs).length > 0) {
+    setErrors(errs);
+    return;
+  }
+
+try {
+  const payload = {
+    fullName: form.fullName,
+    password: form.password,
   };
+
+  if (contactTab === "email") {
+    payload.email = form.contact;
+  } else {
+    payload.phone = form.contact;
+  }
+
+  const response = await fetch(
+    "http://localhost:5001/api/auth/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    alert(data.message);
+    return;
+  }
+
+  alert("Registration Successful!");
+
+  navigate("/");
+} catch (error) {
+  console.error(error);
+  alert("Server Error");
+} 
+};
 
   const strength = getStrength(form.password);
 
