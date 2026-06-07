@@ -1,0 +1,502 @@
+/* ════════════════════════════════════════════════════════
+   KrishiMitra — Register.css
+   Place at: frontend/src/pages/Register.css
+   Matches Login page tokens exactly
+════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ── tokens (mirrored from Login.css) ── */
+:root {
+  --forest:   #0c1f12;
+  --moss:     #1b5e38;
+  --leaf:     #27a35a;
+  --glow:     #3dd68c;
+  --amber:    #f5a623;
+  --amber-dk: #c47e10;
+  --page-bg:  #d4edda;   /* matches your updated login bg */
+  --white:    #ffffff;
+  --ink:      #0f1f12;
+  --muted:    #5f7a62;
+  --border:   #b8d9be;
+  --ff:       'Plus Jakarta Sans', system-ui, sans-serif;
+  --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── page shell ── */
+.rg-page {
+  font-family: var(--ff);
+  background: var(--page-bg);
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── navbar ── */
+.rg-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 2rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: rgba(212, 237, 218, 0.8);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.rg-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+
+.rg-logo-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.rg-nav-back {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.rg-nav-back:hover { color: var(--moss); }
+
+/* ── main content area ── */
+.rg-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+/* ── header above card ── */
+.rg-header {
+  text-align: center;
+  max-width: 440px;
+  margin-bottom: 1.8rem;
+  animation: rgFadeUp 0.55s var(--ease) both 0.05s;
+}
+
+.rg-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  margin-bottom: 0.6rem;
+}
+
+.rg-h1 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.rg-sub {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── card ── */
+.rg-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--white);
+  border: 1px solid #c2dcc8;
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 4px 28px rgba(12,31,18,0.09);
+  animation: rgFadeUp 0.55s var(--ease) both 0.12s;
+}
+
+/* ── form ── */
+.rg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* ── field ── */
+.rg-field {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.rg-lbl {
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  font-size: 0.92rem;
+  font-family: var(--ff);
+  color: var(--muted);
+  pointer-events: none;
+  transition: top 0.2s, font-size 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.rg-lbl-up {
+  top: 0;
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+
+.rg-optional {
+  font-weight: 400;
+  font-size: 0.85em;
+  color: #9ab09a;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.rg-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #c2dcc8;
+  background: transparent;
+  padding: 0.42rem 0;
+  font-size: 0.97rem;
+  color: var(--ink);
+  font-family: var(--ff);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.rg-input:focus  { border-bottom-color: var(--moss); }
+.rg-input-pw     { padding-right: 3.5rem; }
+.rg-input-err    { border-bottom-color: #e05252 !important; }
+
+/* animated underline on focus */
+.rg-uline {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 1.5px; width: 0;
+  background: linear-gradient(90deg, var(--leaf), var(--glow));
+  border-radius: 2px;
+  transition: width 0.28s var(--ease);
+}
+
+.rg-field:focus-within .rg-uline { width: 100%; }
+
+/* show/hide toggle */
+.rg-showhide {
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+  background: none;
+  border: none;
+  font-family: var(--ff);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--leaf);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rg-showhide:hover { color: var(--moss); }
+
+/* ── contact tab switcher ── */
+.rg-tabs {
+  display: flex;
+  background: #e8f4ea;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.rg-tab {
+  flex: 1;
+  padding: 0.44rem;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  font-family: var(--ff);
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.rg-tab-on {
+  background: var(--white);
+  color: var(--moss);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+/* contact input wrapper — rows prefix + input side by side */
+.rg-contact-input-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+/* +91 prefix — only rendered when phone tab is focused/has value */
+.rg-prefix {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-bottom: 0.45rem;
+  flex-shrink: 0;
+  animation: prefixFade 0.15s ease both;
+}
+
+@keyframes prefixFade {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* contact field fills remaining space */
+.rg-contact-field {
+  position: relative;
+  flex: 1;
+  padding-top: 1rem;
+}
+
+/* label inside contact field */
+.rg-contact-field .rg-lbl {
+  top: 1.7rem;
+}
+
+.rg-contact-field .rg-lbl.rg-lbl-up {
+  top: 0;
+}
+
+/* uline inside contact field */
+.rg-contact-field .rg-uline {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 1.5px; width: 0;
+  background: linear-gradient(90deg, var(--leaf), var(--glow));
+  border-radius: 2px;
+  transition: width 0.28s var(--ease);
+}
+
+.rg-contact-field:focus-within .rg-uline { width: 100%; }
+
+/* ── error messages ── */
+.rg-err {
+  font-size: 0.75rem;
+  color: #e05252;
+  margin-top: 0.3rem;
+  font-weight: 500;
+  animation: rgShake 0.3s ease;
+}
+
+.rg-err-contact {
+  text-align: center;
+  margin-top: -0.2rem;
+}
+
+@keyframes rgShake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-4px); }
+  75%       { transform: translateX(4px); }
+}
+
+/* ── password strength ── */
+.rg-strength {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.rg-strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.rg-bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  display: block;
+}
+
+.rg-strength-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  width: 44px;
+  text-align: right;
+}
+
+/* ── password match indicator ── */
+.rg-match {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.35rem;
+  transition: color 0.2s;
+}
+
+/* ── terms ── */
+.rg-terms {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: -0.2rem;
+}
+
+.rg-terms-link {
+  color: var(--moss);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── submit button ── */
+.rg-btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.88rem;
+  background: linear-gradient(135deg, var(--moss) 0%, var(--forest) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--ff);
+  font-size: 0.96rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  box-shadow: 0 3px 16px rgba(12,31,18,0.2);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  margin-top: 0.2rem;
+}
+
+.rg-btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(12,31,18,0.28);
+}
+
+.rg-btn-submit:active { transform: translateY(0); }
+
+.rg-ico {
+  width: 17px; height: 17px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.rg-btn-submit:hover .rg-ico { transform: translateX(3px); }
+
+/* ── divider ── */
+.rg-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 1.3rem 0 0.9rem;
+  font-size: 0.73rem;
+  color: #a0b8a0;
+  font-family: var(--ff);
+}
+
+.rg-divider span:first-child,
+.rg-divider span:last-child {
+  flex: 1; height: 1px;
+  background: #d0e8d4;
+  display: block;
+}
+
+/* ── google button ── */
+.rg-btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.74rem;
+  background: var(--white);
+  color: var(--ink);
+  border: 1.5px solid #c2dcc8;
+  border-radius: 12px;
+  font-family: var(--ff);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.rg-btn-google:hover {
+  border-color: #8fbc94;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  transform: translateY(-1px);
+}
+
+.rg-g-svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* ── sign in prompt ── */
+.rg-signin {
+  text-align: center;
+  margin-top: 1.3rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.rg-signin-link {
+  color: var(--moss);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.rg-signin-link:hover { color: var(--forest); text-decoration: underline; }
+
+/* ── footer ── */
+.rg-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1.2rem 2rem;
+  border-top: 1px solid #c2dcc8;
+  background: rgba(212,237,218,0.6);
+}
+
+.rg-footer-brand {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.rg-footer-copy {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── animation ── */
+@keyframes rgFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── responsive ── */
+@media (max-width: 480px) {
+  .rg-nav     { padding: 0.9rem 1.1rem; }
+  .rg-main    { padding: 2rem 1rem 2.5rem; }
+  .rg-card    { padding: 1.6rem 1.1rem; border-radius: 16px; }
+  .rg-footer  { padding: 1rem 1.1rem; }
+}
