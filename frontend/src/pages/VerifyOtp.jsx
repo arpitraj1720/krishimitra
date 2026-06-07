@@ -16,17 +16,19 @@ export default function VerifyOtp() {
   location.state?.email;
 
 useEffect(() => {
-  if (!rawPhone) {
+  if (!identifier) {
     navigate("/register");
   }
-}, [rawPhone, navigate]);
+}, [identifier, navigate]);
 
-if (!rawPhone) return null;
+if (!identifier) return null;
 
 const maskedPhone =
-  "+91 " +
-  rawPhone.slice(0, -3).replace(/\d/g, "X") +
-  rawPhone.slice(-3);
+  location.state?.type === "phone"
+    ? "+91 " +
+      identifier.slice(0, -3).replace(/\d/g, "X") +
+      identifier.slice(-3)
+    : identifier;
 
   /* ── OTP digit state ── */
   const [digits,  setDigits]  = useState(Array(OTP_LENGTH).fill(""));
@@ -282,7 +284,9 @@ const maskedPhone =
 
         <div className="otp-header">
           <p className="otp-tag">One last step</p>
-          <h1 className="otp-h1">Verify your mobile number</h1>
+         <h1 className="otp-h1">
+  Verify your {location.state?.type === "email" ? "email" : "mobile number"}
+</h1>
           <p className="otp-sub">
             We sent a 6-digit code to your mobile number. Enter it below to confirm your account.
           </p>
