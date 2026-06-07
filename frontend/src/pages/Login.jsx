@@ -103,7 +103,7 @@ function useParticleCanvas(canvasRef) {
       const scatterT = Math.min((stillTimer - 40) / 50, 1); /* 0→1 scatter blend */
 
       /* fade trail instead of hard clear — gives gentle motion blur */
-      ctx.fillStyle = "rgba(12,31,18,0.22)";
+      ctx.fillStyle = "rgba(12,31,18,0.55)";
       ctx.fillRect(0, 0, w, h);
 
       fireflies.forEach((f) => {

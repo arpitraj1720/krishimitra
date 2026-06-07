@@ -99,4 +99,20 @@ Future backend integration will:
 
 Build the Login Page UI and navigation flow.
 
-## Arpit_End.
+## Day-2
+
+Milestone 1 Complete:
+- Frontend project setup
+- React Router configuration
+- Login page
+- Register page
+- Basic form validation
+- UI design system established
+
+Next Milestone:
+- Dashboard page
+- User journey design
+- Schemes discovery flow
+- Farming assistance flow
+
+## Arpit_End
