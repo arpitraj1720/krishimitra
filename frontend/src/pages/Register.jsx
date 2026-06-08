@@ -133,16 +133,13 @@ try {
 const identifier = form.contact;
 
 const response = await fetch(
-  "https://krishimitra-sjw8.onrender.com/api/auth/send-otp",
+  "https://krishimitra-sjw8.onrender.com/api/auth/register",
   {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      identifier,
-      type: contactTab,
-    }),
+    body: JSON.stringify(payload),
   }
 );
 
@@ -153,25 +150,8 @@ if (!response.ok) {
   return;
 }
 
-alert("OTP Sent Successfully!");
-
-navigate("/verify-otp", {
-  state: {
-    fullName: form.fullName,
-    password: form.password,
-    email:
-      contactTab === "email"
-        ? form.contact
-        : "",
-
-    phone:
-      contactTab === "phone"
-        ? form.contact
-        : "",
-
-    type: contactTab,
-  },
-});
+alert("Registration Successful!");
+navigate("/");;
 } catch (error) {
   console.error(error);
   alert("Server Error");
