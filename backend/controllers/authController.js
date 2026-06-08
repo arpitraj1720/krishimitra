@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 /* ===========================
    REGISTER USER
 =========================== */
@@ -11,6 +10,7 @@ const registerUser = async (req, res) => {
   try {
     const { fullName, email, phone, password } = req.body;
 
+    // Check existing user
     const existingUser = await User.findOne({
       $or: [
         ...(email ? [{ email }] : []),
@@ -19,6 +19,18 @@ const registerUser = async (req, res) => {
     });
 
     if (existingUser) {
+      if (phone && existingUser.phone === phone) {
+        return res.status(400).json({
+          message: "Phone number already registered",
+        });
+      }
+
+      if (email && existingUser.email === email) {
+        return res.status(400).json({
+          message: "Email already registered",
+        });
+      }
+
       return res.status(400).json({
         message: "User already exists",
       });
@@ -28,12 +40,12 @@ const registerUser = async (req, res) => {
 
     const user = await User.create({
       fullName,
-      email,
-      phone,
+      email: email || undefined,
+      phone: phone || undefined,
       password: hashedPassword,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "User registered successfully",
       user: {
         id: user._id,
@@ -45,8 +57,27 @@ const registerUser = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
-      message: error.message,
+    // Handle Mongo duplicate key errors
+    if (error.code === 11000) {
+      if (error.keyPattern?.phone) {
+        return res.status(400).json({
+          message: "Phone number already registered",
+        });
+      }
+
+      if (error.keyPattern?.email) {
+        return res.status(400).json({
+          message: "Email already registered",
+        });
+      }
+
+      return res.status(400).json({
+        message: "User already exists",
+      });
+    }
+
+    return res.status(500).json({
+      message: "Server error",
     });
   }
 };
@@ -54,6 +85,7 @@ const registerUser = async (req, res) => {
 /* ===========================
    LOGIN USER
 =========================== */
+
 const loginUser = async (req, res) => {
   try {
     const { identifier, password } = req.body;
@@ -92,7 +124,7 @@ const loginUser = async (req, res) => {
       }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Login successful",
       token,
       user: {
@@ -105,14 +137,13 @@ const loginUser = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      message: "Server error",
     });
   }
 };
 
 module.exports = {
-  
   registerUser,
   loginUser,
 };
