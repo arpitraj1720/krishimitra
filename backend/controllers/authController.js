@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const OtpVerification = require("../models/OtpVerification");
-
+const sendEmailOtp = require("../utils/sendEmailOtp");
 /* ===========================
    REGISTER USER
 =========================== */
@@ -63,7 +63,7 @@ if (type === "phone") {
 }
 
 if (type === "email") {
-  console.log(`EMAIL OTP for ${identifier}: ${otp}`);
+  await sendEmailOtp(identifier, otp);
 }
     res.status(200).json({
       message: "OTP sent successfully",
