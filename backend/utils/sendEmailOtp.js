@@ -14,8 +14,7 @@ const sendEmailOtp = async (email, otp) => {
   try {
     console.log("Sending email to:", email);
 
-    await transporter.verify();
-    console.log("SMTP READY");
+
 
     const info = await transporter.sendMail({
       from: `"KrishiMitra" <${process.env.EMAIL_USER}>`,
