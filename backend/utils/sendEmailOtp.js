@@ -1,23 +1,13 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmailOtp = async (email, otp) => {
   try {
     console.log("Sending email to:", email);
 
-
-
-    const info = await transporter.sendMail({
-      from: `"KrishiMitra" <${process.env.EMAIL_USER}>`,
+    const data = await resend.emails.send({
+      from: "onboarding@resend.dev",
       to: email,
       subject: "KrishiMitra OTP Verification",
       html: `
@@ -30,7 +20,7 @@ const sendEmailOtp = async (email, otp) => {
       `,
     });
 
-    console.log("EMAIL SENT:", info.messageId);
+    console.log("EMAIL SENT:", data);
   } catch (err) {
     console.error("EMAIL ERROR:", err);
     throw err;
