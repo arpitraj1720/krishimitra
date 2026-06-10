@@ -21,18 +21,18 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       if (phone && existingUser.phone === phone) {
         return res.status(400).json({
-          message: "Phone number already registered",
+          message: "Phone number already registered. Please login instead.",
         });
       }
 
       if (email && existingUser.email === email) {
         return res.status(400).json({
-          message: "Email already registered",
+          message: "Email already registered. Please login instead.",
         });
       }
 
       return res.status(400).json({
-        message: "User already exists",
+        message: "User already exists. Please login instead.",
       });
     }
 

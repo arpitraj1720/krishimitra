@@ -51,7 +51,7 @@ export default function Register() {
       JSON.stringify(user)
     );
 
-    navigate("/profile");
+    navigate("/dashboard");
   },
 
   onError: () => {
@@ -146,12 +146,20 @@ const response = await fetch(
 const data = await response.json();
 
 if (!response.ok) {
+
+  if (
+    data.message.includes("already")
+  ) {
+    alert(data.message);
+    navigate("/");
+    return;
+  }
   alert(data.message);
   return;
 }
 
 alert("Registration Successful!");
-navigate("/");;
+navigate("/dashboard");;
 } catch (error) {
   console.error(error);
   alert("Server Error");
