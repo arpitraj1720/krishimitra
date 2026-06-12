@@ -125,7 +125,6 @@ export default function Dashboard() {
       <header className="db-header">
         <div className="db-header-inner">
           <div className="db-brand">
-            <span className="db-brand-icon db-brand-leaf">{Icons.farm}</span>
             <span className="db-brand-name">KrishiMitra</span>
           </div>
           <nav className="db-nav">

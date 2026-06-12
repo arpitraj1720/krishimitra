@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./pages/ScrollToTop";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,6 +12,7 @@ import SchemeDetail from "./pages/SchemeDetail";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

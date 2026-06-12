@@ -56,10 +56,10 @@ html {
 }
 
 .db-header-inner {
-  max-width: 1180px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
-  height: 58px;
+  padding: 0 32px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;

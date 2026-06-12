@@ -1,0 +1,811 @@
+/* ═══════════════════════════════════════════════════════
+   KrishiMitra — Profile.css
+   ALL selectors are scoped under .km-profile-page
+   to prevent bleeding into Login / Register / Landing.
+═══════════════════════════════════════════════════════ */
+
+/* CSS vars scoped to the page root — safe, doesn't affect other pages */
+.km-profile-page {
+  --km-green-dark: #1d4a2a;
+  --km-green-mid: #2d6a3f;
+  --km-green-light: #d4edda;
+  --km-green-pale: #eaf5ec;
+  --km-green-border: #b8ddc4;
+  --km-amber: #d4860a;
+  --km-amber-light: #fdf3e0;
+  --km-text-primary: #111;
+  --km-text-secondary: #4a5568;
+  --km-text-muted: #7a8c8e;
+  --km-white: #fff;
+  --km-shadow-card: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  --km-radius: 16px;
+  --km-radius-sm: 10px;
+
+  /* Scoped box-sizing reset — only inside profile page */
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: var(--km-green-light);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: var(--km-text-primary);
+}
+
+.km-profile-page *, .km-profile-page *::before, .km-profile-page *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── NAV — matches Register's edge-to-edge full-width style ── */
+/* ── NAV — matches Dashboard's header exactly ── */
+.km-profile-page .km-nav {
+  width: 100%;
+  background: var(--km-white);
+  border-bottom: 1px solid var(--km-green-border);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.km-profile-page .km-nav-inner {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.km-profile-page .km-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--km-green-dark);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.km-profile-page .km-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.km-profile-page .km-nav__link {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--km-text-secondary);
+  text-decoration: none;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.km-profile-page .km-nav__link:hover {
+  background: var(--km-green-pale);
+  color: var(--km-green-mid);
+}
+
+.km-profile-page .km-nav__link--active {
+  color: var(--km-green-dark);
+  font-weight: 600;
+}
+
+.km-profile-page .km-nav__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--km-green-mid);
+  color: #fff;
+  border: none;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  transition: opacity 0.15s;
+}
+
+.km-profile-page .km-nav__avatar:hover {
+  opacity: 0.85;
+}
+/* ── MAIN ── */
+.km-profile-page .km-profile-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+.km-profile-page .km-profile-header {
+  margin-bottom: 32px;
+}
+
+.km-profile-page .km-profile-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--km-green-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.km-profile-page .km-profile-header p {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--km-text-secondary);
+}
+
+/* ── TWO COLUMN LAYOUT ── */
+.km-profile-page .km-profile-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.km-profile-page .km-profile-left,
+.km-profile-page .km-profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── CARD BASE ── */
+.km-profile-page .km-card {
+  background: var(--km-white);
+  border-radius: var(--km-radius);
+  padding: 24px;
+  box-shadow: var(--km-shadow-card);
+  border: 1px solid rgba(180, 210, 190, 0.4);
+}
+
+.km-profile-page .km-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.km-profile-page .km-card__eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--km-green-mid);
+  margin-bottom: 4px;
+}
+
+.km-profile-page .km-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--km-green-dark);
+  letter-spacing: -0.3px;
+}
+
+.km-profile-page .km-card__title--spaced {
+  margin-bottom: 18px;
+}
+
+.km-profile-page .km-card__desc {
+  font-size: 13px;
+  color: var(--km-text-secondary);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* ── ACCOUNT CARD ── */
+.km-profile-page .km-card--account .km-card__head {
+  margin-bottom: 16px;
+}
+
+.km-profile-page .km-account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--km-green-light);
+}
+
+.km-profile-page .km-account-row:last-child {
+  border-bottom: none;
+}
+
+.km-profile-page .km-account-label {
+  font-size: 13px;
+  color: var(--km-text-muted);
+  font-weight: 500;
+  min-width: 52px;
+  flex-shrink: 0;
+}
+
+.km-profile-page .km-account-value {
+  font-size: 14px;
+  color: var(--km-text-primary);
+  font-weight: 600;
+  word-break: break-all;
+  text-align: right;
+}
+
+/* ── COMPLETION CARD ── */
+.km-profile-page .km-card--completion {
+  background: var(--km-green-dark);
+  border-color: transparent;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.km-profile-page .km-card--completion .km-completion-ring {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.km-profile-page .km-card--completion h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--km-white);
+  margin-bottom: 6px;
+}
+
+.km-profile-page .km-completion-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 10px;
+}
+
+.km-profile-page .km-completion-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.km-profile-page .km-completion-list li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.km-profile-page .km-completion-list li::before {
+  content: "✓";
+  color: #6fcf97;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ── FARM CARD ── */
+.km-profile-page .km-card--farm {
+  border-left: 3px solid var(--km-green-dark);
+}
+
+/* ── ELIGIBILITY CARD ── */
+.km-profile-page .km-card--eligibility {
+  border-left: 3px solid var(--km-amber);
+}
+
+.km-profile-page .km-card--eligibility .km-card__eyebrow {
+  color: var(--km-amber);
+}
+
+/* ── DOCS CARD ── */
+.km-profile-page .km-card--docs .km-card__head {
+  margin-bottom: 12px;
+}
+
+.km-profile-page .km-docs-desc {
+  font-size: 13px;
+  color: var(--km-text-secondary);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.km-profile-page .km-badge-soon {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--km-amber-light);
+  color: var(--km-amber);
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.km-profile-page .km-docs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.km-profile-page .km-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--km-green-pale);
+  border: 1px solid var(--km-green-border);
+  border-radius: var(--km-radius-sm);
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--km-text-secondary);
+  opacity: 0.7;
+}
+
+.km-profile-page .km-doc-icon {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* ── FORM FIELDS ── */
+.km-profile-page .km-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.km-profile-page .km-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--km-text-secondary);
+  letter-spacing: 0.2px;
+}
+
+.km-profile-page .km-optional {
+  font-weight: 400;
+  color: var(--km-text-muted);
+}
+
+.km-profile-page .km-field input,
+.km-profile-page .km-field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--km-green-border);
+  border-radius: var(--km-radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--km-text-primary);
+  background: var(--km-white);
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.km-profile-page .km-field input:focus,
+.km-profile-page .km-field select:focus {
+  border-color: var(--km-green-dark);
+}
+
+.km-profile-page .km-field select {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231d4a2a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.km-profile-page .km-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.km-profile-page .km-field-row--land {
+  grid-template-columns: 1fr auto;
+}
+
+.km-profile-page .km-field--grow { flex: 1; }
+.km-profile-page .km-field--unit { width: 120px; }
+
+/* ── SECTION GROUPS ── */
+.km-profile-page .km-section-group {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--km-green-light);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.km-profile-page .km-section-group:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.km-profile-page .km-group-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--km-text-muted);
+}
+
+/* ── CHIPS ── */
+.km-profile-page .km-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.km-profile-page .km-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--km-green-border);
+  background: var(--km-white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--km-text-secondary);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.km-profile-page .km-chip:hover {
+  border-color: var(--km-green-dark);
+  color: var(--km-green-dark);
+}
+
+.km-profile-page .km-chip--active {
+  background: var(--km-green-dark);
+  border-color: var(--km-green-dark);
+  color: var(--km-white);
+}
+
+.km-profile-page .km-chip--tall {
+  padding: 8px 16px;
+  border-radius: var(--km-radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.km-profile-page .km-chip__sub {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* ── NOTIFICATIONS ── */
+.km-profile-page .km-notif-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.km-profile-page .km-notif-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--km-text-secondary);
+  letter-spacing: 0.2px;
+  margin-bottom: 12px;
+}
+
+.km-profile-page .km-notif-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--km-green-light);
+}
+
+.km-profile-page .km-notif-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.km-profile-page .km-notif-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--km-text-primary);
+}
+
+.km-profile-page .km-notif-desc {
+  display: block;
+  font-size: 12px;
+  color: var(--km-text-muted);
+  margin-top: 2px;
+}
+
+/* ── TOGGLE ── */
+.km-profile-page .km-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--km-green-border);
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.km-profile-page .km-toggle--on {
+  background: var(--km-green-dark);
+  justify-content: flex-end;
+}
+
+.km-profile-page .km-toggle__thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--km-white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+
+/* ── BUTTONS ── */
+.km-profile-page .km-btn-ghost {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--km-green-dark);
+  background: none;
+  border: 1.5px solid var(--km-green-border);
+  border-radius: 8px;
+  padding: 5px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.km-profile-page .km-btn-ghost:hover {
+  background: var(--km-green-light);
+}
+
+/* ── SAVE BAR ── */
+.km-save-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--km-white, #fff);
+  border-top: 1px solid #b8ddc4;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  z-index: 200;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
+
+.km-btn-save {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1d4a2a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.km-btn-save:hover {
+  opacity: 0.9;
+}
+
+.km-saved-msg {
+  font-size: 13px;
+  color: #2d6a3f;
+  font-weight: 500;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .km-profile-page .km-profile-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .km-profile-page .km-nav-inner {
+    padding: 0 16px;
+  }
+
+  .km-profile-page .km-profile-main {
+    padding: 24px 16px 100px;
+  }
+
+  .km-profile-page .km-profile-header h1 {
+    font-size: 22px;
+  }
+
+  .km-profile-page .km-card--completion {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .km-profile-page .km-completion-list li {
+    justify-content: center;
+  }
+
+  .km-profile-page .km-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .km-profile-page .km-field-row--land {
+    grid-template-columns: 1fr auto;
+  }
+
+  .km-profile-page .km-docs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .km-profile-page .km-docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .km-profile-page .km-chip--tall {
+    flex: 1;
+  }
+
+  .km-save-bar {
+    padding: 12px 16px;
+  }
+}
+
+/* ── VALUE BANNER ── */
+.km-profile-page .km-value-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  background: var(--km-green-dark);
+  border-radius: var(--km-radius);
+  padding: 28px 32px;
+  margin-bottom: 28px;
+}
+
+.km-profile-page .km-value-banner__text h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.4px;
+  margin-bottom: 4px;
+}
+
+.km-profile-page .km-value-banner__text p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+}
+
+.km-profile-page .km-value-banner__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.km-profile-page .km-value-banner__list li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.km-profile-page .km-value-banner__list li::before {
+  content: "✓";
+  color: #6fcf97;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* ── COMPLETION STEPS ── */
+.km-profile-page .km-completion-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.km-profile-page .km-step {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.km-profile-page .km-step::before {
+  content: "○";
+  font-size: 10px;
+}
+
+.km-profile-page .km-step--done {
+  color: rgba(255,255,255,0.9);
+}
+
+.km-profile-page .km-step--done::before {
+  content: "✓";
+  color: #6fcf97;
+}
+
+/* ── FARM HEAD (no bottom margin conflict) ── */
+.km-profile-page .km-farm-head {
+  margin-bottom: 4px;
+}
+
+/* ── FARMER CATEGORY CARDS ── */
+.km-profile-page .km-category-group {
+  display: flex;
+  gap: 10px;
+}
+
+.km-profile-page .km-category-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  border-radius: var(--km-radius-sm);
+  border: 1.5px solid var(--km-green-border);
+  background: var(--km-white);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.km-profile-page .km-category-card:hover {
+  border-color: var(--km-green-dark);
+}
+
+.km-profile-page .km-category-card--active {
+  background: var(--km-green-dark);
+  border-color: var(--km-green-dark);
+}
+
+.km-profile-page .km-category-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--km-green-dark);
+}
+
+.km-profile-page .km-category-card--active .km-category-label {
+  color: #fff;
+}
+
+.km-profile-page .km-category-sub {
+  font-size: 11px;
+  color: var(--km-text-muted);
+  line-height: 1.3;
+}
+
+.km-profile-page .km-category-card--active .km-category-sub {
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── RESPONSIVE ADDITIONS ── */
+@media (max-width: 860px) {
+  .km-profile-page .km-value-banner {
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px 20px;
+  }
+
+  .km-profile-page .km-category-group {
+    flex-direction: column;
+  }
+}
